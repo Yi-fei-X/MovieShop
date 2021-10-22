@@ -21,5 +21,6 @@ namespace ApplicationCore.Entities
         public DateTime? LastLoginDateTime  { get; set; }
         public bool IsLocked { get; set; }
         public int AccessFailedCount { get; set; }
+        public ICollection<UserRole> Roles { get; set; }
     }
 }
