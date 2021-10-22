@@ -69,7 +69,7 @@ namespace Infrastructure.Data
             builder.Property(m => m.LastName).HasMaxLength(128);
             builder.Property(m => m.DateOfBirth).HasDefaultValueSql("getdate()");
             builder.Property(m => m.Email).HasMaxLength(256);
-            builder.Property(m => m.HashePassword).HasMaxLength(1024);
+            builder.Property(m => m.HashedPassword).HasMaxLength(1024);
             builder.Property(m => m.Salt).HasMaxLength(1024);
             builder.Property(m => m.PhoneNumber).HasMaxLength(16);
             builder.Property(m => m.LockoutEndDate).HasDefaultValueSql("getdate()");
