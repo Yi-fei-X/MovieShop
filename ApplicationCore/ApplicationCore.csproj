@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="RepositoryInterfaces\" />
-    <Folder Include="ServiceInterfaces\" />
   </ItemGroup>
 
 </Project>
