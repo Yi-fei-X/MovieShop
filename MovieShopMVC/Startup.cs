@@ -52,9 +52,10 @@ namespace MovieShopMVC
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
+                endpoints.MapControllerRoute(   //routing method
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //you can spcify the default method here
             });
         }
     }
