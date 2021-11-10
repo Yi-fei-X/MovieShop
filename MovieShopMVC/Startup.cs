@@ -1,4 +1,8 @@
+using ApplicationCore.RepositoryInterfaces;
+using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,9 +27,14 @@ namespace MovieShopMVC
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // Use this method for dependency injection
         public void ConfigureServices(IServiceCollection services)
         {
+            // IOC(Inversion of control) 
             services.AddControllersWithViews();
+            services.AddScoped<IMovieService, MovieService>();  // For IMovieService interface, use MovieService class. (If you want to use other implementation, change it here)
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            // Inject connection string from appsetting.json to MovieShopDbContext
             services.AddDbContext<MovieShopDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("MovieShopDbConnection")));
         }

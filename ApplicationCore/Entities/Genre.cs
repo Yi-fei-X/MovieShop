@@ -10,6 +10,6 @@ namespace ApplicationCore.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<MovieGenre> Movies { get; set; }
+        public ICollection<MovieGenre> Movies { get; set; } // Refer to junction table (many to many)
     }
 }

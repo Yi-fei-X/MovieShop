@@ -7,17 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Contain Entity Framework Code
 namespace Infrastructure.Data
 {
     public class MovieShopDbContext: DbContext
     {
-        public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options): base(options)
+        // Get the connection string into constructor
+        public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options): base(options)  // base will go to the base class's constructor
         {
 
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)  //Change table using fluent API
         {
-            modelBuilder.Entity<Genre>(ConfigureGenre);
+            //specify Fluent API rules for your Entities
+            modelBuilder.Entity<Genre>(ConfigureGenre);     //It takes an action delegate.
             modelBuilder.Entity<Movie>(ConfigureMovie);
             modelBuilder.Entity<Cast>(ConfigureCast);
             modelBuilder.Entity<User>(ConfigureUser);
@@ -39,6 +42,7 @@ namespace Infrastructure.Data
         }
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
         {
+            // specify all the constraints and rules for Movie Table/Entity
             builder.ToTable("Movie");
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Title).HasMaxLength(256);
@@ -53,7 +57,7 @@ namespace Infrastructure.Data
             builder.Property(m => m.Budget).HasColumnType("decimal(18, 4)").HasDefaultValue(9.9m);
             builder.Property(m => m.Revenue).HasColumnType("decimal(18, 4)").HasDefaultValue(9.9m);
             builder.Property(m => m.CreatedDate).HasDefaultValueSql("getdate()");
-            builder.Ignore(m => m.Rating);
+            builder.Ignore(m => m.Rating);  //we want to tell EF to ignore Rating property and do not create that column
         }
         private void ConfigureCast(EntityTypeBuilder<Cast> builder)
         {
@@ -90,7 +94,7 @@ namespace Infrastructure.Data
         }
         private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
         {
-            builder.ToTable("Trailer");
+            builder.ToTable("Trailer"); //change to the name you want
             builder.HasKey(m => m.Id);
             builder.Property(m => m.TrailerUrl).HasMaxLength(2084);
             builder.Property(m => m.Name).HasMaxLength(2084);
@@ -98,8 +102,8 @@ namespace Infrastructure.Data
         private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder)
         {
             builder.ToTable("MovieGenre");
-            builder.HasKey(m => new { m.MovieId, m.GenreId });
-            builder.HasOne(m => m.Movie).WithMany(m => m.Genres).HasForeignKey(m => m.MovieId);
+            builder.HasKey(m => new { m.MovieId, m.GenreId });  //Composite primary key
+            builder.HasOne(m => m.Movie).WithMany(m => m.Genres).HasForeignKey(m => m.MovieId); // Why MovieId here?
             builder.HasOne(m => m.Genre).WithMany(m => m.Movies).HasForeignKey(m => m.GenreId);
         }
         private void ConfigureMovieCrew(EntityTypeBuilder<MovieCrew> builder)
@@ -108,16 +112,16 @@ namespace Infrastructure.Data
             builder.HasKey(m => new { m.MovieId, m.CrewId, m.Department, m.Job });
             builder.Property(m => m.Department).HasMaxLength(128);
             builder.Property(m => m.Job).HasMaxLength(128);
-            builder.HasOne(m => m.Movie).WithMany(m => m.Crews).HasForeignKey(m => m.CrewId);
-            builder.HasOne(m => m.Crew).WithMany(m => m.Movies).HasForeignKey(m => m.MovieId);
+            builder.HasOne(m => m.Movie).WithMany(m => m.Crews).HasForeignKey(m => m.MovieId);
+            builder.HasOne(m => m.Crew).WithMany(m => m.Movies).HasForeignKey(m => m.CrewId);
         }
         private void ConfigureMovieCast(EntityTypeBuilder<MovieCast> builder)
         {
             builder.ToTable("MovieCast");
             builder.HasKey(m => new { m.MovieId, m.CastId, m.Character });
             builder.Property(m => m.Character).HasMaxLength(450);
-            builder.HasOne(m => m.Movie).WithMany(m => m.Casts).HasForeignKey(m => m.CastId);
-            builder.HasOne(m => m.Cast).WithMany(m => m.Movies).HasForeignKey(m => m.MovieId);
+            builder.HasOne(m => m.Movie).WithMany(m => m.Casts).HasForeignKey(m => m.MovieId);
+            builder.HasOne(m => m.Cast).WithMany(m => m.Movies).HasForeignKey(m => m.CastId);
         }
         private void ConfigureReview(EntityTypeBuilder<Review> builder)
         {
@@ -139,6 +143,7 @@ namespace Infrastructure.Data
             builder.HasOne(m => m.User).WithMany(m => m.Roles).HasForeignKey(m => m.UserId);
             builder.HasOne(m => m.Role).WithMany(m => m.Users).HasForeignKey(m => m.RoleId);
         }
+        // Make sure that our entity classes are represented as DbSets
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Movie> Movie { get; set; }
         public DbSet<Cast> Cast { get; set; }

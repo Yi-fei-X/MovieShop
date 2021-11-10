@@ -1,12 +1,19 @@
-﻿@{
+﻿@*Tell the view what kinds of data is expecting. For type safety*@
+@model List<ApplicationCore.Models.MovieCardResponseModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-@*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>*@
-
-<h1>
-    Movie Shop App
-</h1>
+<div class="rounded">   @*Bootstrap Class*@
+    <div class="container-fluid">
+        <div class="row">   @*Each row has 12 columns/spaces*@
+            @foreach (var movieCard in Model)
+            {
+                <div class="col-xl-2 col-sm-4 col-lg-3 col-6">  @*For extra large page, take 2 columns. For small page, take 4 columns. For large page, take 3 columns. By default for extra small page, take 6 columns.*@
+                    <partial name="_MovieCard" model="movieCard" /> @*Call partial view and pass the parameter*@
+                </div>
+            }
+        </div>
+    </div>
+</div>

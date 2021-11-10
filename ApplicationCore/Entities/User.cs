@@ -22,5 +22,8 @@ namespace ApplicationCore.Entities
         public bool? IsLocked { get; set; }
         public int? AccessFailedCount { get; set; }
         public ICollection<UserRole> Roles { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
     }
 }

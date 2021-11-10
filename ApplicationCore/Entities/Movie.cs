@@ -27,10 +27,16 @@ namespace ApplicationCore.Entities
         public string UpdatedBy { get; set; }
         public string CreatedBy { get; set; }
 
+        // Rating column will not be there in Movie Table (For business logic only)
+        // Averate Rating should come from Review Table
         public decimal? Rating { get; set; }
-        public ICollection<Trailer> Trailers { get; set; }
-        public ICollection<MovieGenre> Genres { get; set; }
+        // Navigation property
+        public ICollection<Trailer> Trailers { get; set; }  // one movie can have multiple trailers
+        public ICollection<MovieGenre> Genres { get; set; } // Refer to junction table (many to many)
         public ICollection<MovieCrew> Crews { get; set; }
         public ICollection<MovieCast> Casts { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
     }
 }

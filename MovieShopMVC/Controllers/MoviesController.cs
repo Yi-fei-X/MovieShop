@@ -10,9 +10,18 @@ namespace MovieShopMVC.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieService _movieService;
-        public Task<IActionResult> Details(int id)
-        {
 
+        public MoviesController(IMovieService movieService)
+        {
+            _movieService = movieService;
+        }
+
+        // URL https://localhost/movies/details
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var movieDetails = await _movieService.GetMovieDetails(id);
+            return View(movieDetails);
         }
     }
 }
