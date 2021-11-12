@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MovieShopMVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,11 @@ namespace MovieShopMVC.Controllers
     // all the action methods in User Controller should work only when user is Authenticated (login success)
     public class UserController : Controller
     {
+        private readonly ICurrentUserService _currentUserService;
+        public UserController(ICurrentUserService currentUserService)
+        {
+            _currentUserService = currentUserService;
+        }
         [HttpPost]
         public async Task<IActionResult> Purchase()
         {
@@ -28,9 +35,14 @@ namespace MovieShopMVC.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Purchases(int id)
+        // Filters in ASP.NET 
+        [Authorize]     // Filter(Authorize attribute)
+        public async Task<IActionResult> Purchases()
         {
+            // get the id from HttpCOntext.User.Claims
             // get all the movies that purchased by the user. Data type: List<MovieCard>
+            var userId = _currentUserService.UserId;
+            // pass the user id to the UserService, that will pass to the UserRepository
             return View();
         }
         [HttpGet]

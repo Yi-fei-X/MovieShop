@@ -10,12 +10,16 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class MovieRepository : IMovieRepository
+    public class MovieRepository: EfRepository<Movie>, IMovieRepository     //All the repositories should inherit from EfRepository(class). We can only inherit one class but we can inherit multiple interfaces.
     {
-        public MovieShopDbContext _dbContext;
+        /*private readonly MovieShopDbContext _dbContext;
         public MovieRepository(MovieShopDbContext dbContext)    //Why?
         {
             _dbContext = dbContext;
+        }*/
+        public MovieRepository(MovieShopDbContext dbContext): base(dbContext)
+        {
+
         }
 
         public async Task<Movie> GetMovieById(int id)
