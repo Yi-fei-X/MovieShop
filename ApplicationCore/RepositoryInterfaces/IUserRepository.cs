@@ -10,5 +10,6 @@ namespace ApplicationCore.RepositoryInterfaces
     public interface IUserRepository: IAsyncRepository<User>    //All the repository interfaces should inherit IAsyncRepository.
     {
         Task<User> GetUserByEmail(string email);
+
     }
 }

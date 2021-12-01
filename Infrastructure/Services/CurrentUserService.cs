@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApplicationCore.ServiceInterfaces;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MovieShopMVC.Services
+namespace Infrastructure.Services
 {
     public class CurrentUserService : ICurrentUserService
     {
@@ -17,7 +18,7 @@ namespace MovieShopMVC.Services
         }
         // we need to use HttpContext class to get all this information from HttpContext User Object
 
-        public int UserId => Convert.ToInt32((_httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value));
+        public int UserId => Convert.ToInt32(_httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
         public bool IsAuthenticated => _httpContextAccessor.HttpContext?.User.Identity != null &&
                                        _httpContextAccessor.HttpContext != null &&

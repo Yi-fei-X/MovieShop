@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MovieShopMVC.Services
+namespace ApplicationCore.ServiceInterfaces
 {
     public interface ICurrentUserService
     {

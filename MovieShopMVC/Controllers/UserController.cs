@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ApplicationCore.ServiceInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieShopMVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +41,7 @@ namespace MovieShopMVC.Controllers
         {
             // get the id from HttpCOntext.User.Claims
             // get all the movies that purchased by the user. Data type: List<MovieCard>
-            var userId = _currentUserService.UserId;
+            // var userId = _currentUserService.UserId;
             // pass the user id to the UserService, that will pass to the UserRepository
             return View();
         }

@@ -1,0 +1,9 @@
+<div class="card mb-4">
+    <!-- we need to navigate to http://localhost:4200/movies/3 -->
+    <!-- routerlink -->
+    <!-- use snippets, directly type "ng-router-link" -->
+    <a [routerLink]="[ '/movies/', movieCard.id]">     
+        <img src="{{movieCard.posterUrl}}" alt="{{movieCard.title}}" class="img-fluid rounded" />
+    </a>
+
+</div>

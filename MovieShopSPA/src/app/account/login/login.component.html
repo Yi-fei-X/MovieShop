@@ -1,0 +1,28 @@
+<!-- Use Template-Driven approach for login form -->
+<!-- We use ngModel directive for Template-Driven form -->
+<!-- behind the scene it will use FormControl -->
+<!-- template driven approach will require each html control to have name attribute -->
+<!-- ngModel uses "banana in the box" syntax -->
+<!-- type ng-model and then TAB -->
+<!-- Before using Template-driven or Reactive forms, import those two modules in app module -->
+<!-- Two way binding: Angular's two-way binding syntax is a combination of square brackets and parentheses, [()]-->
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h4>Login</h4>
+        <hr />
+        <form (ngSubmit)="loginSubmit()">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input class="form-control" name="email" [(ngModel)]="userLogin.email"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input class="form-control" name="password" [(ngModel)]="userLogin.password" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

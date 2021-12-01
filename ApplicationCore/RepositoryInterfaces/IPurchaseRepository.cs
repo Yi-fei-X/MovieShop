@@ -9,5 +9,6 @@ namespace ApplicationCore.RepositoryInterfaces
 {
     public interface IPurchaseRepository: IAsyncRepository<Purchase>   //All interface repository should inherit from the base repository
     {
+        Task<IEnumerable<Purchase>> GetUserPurchases(int id);
     }
 }
