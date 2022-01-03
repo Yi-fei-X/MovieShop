@@ -8,6 +8,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -22,7 +23,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    SharedModule
   ]
 })
 export class UserModule { }

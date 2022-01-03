@@ -23,7 +23,7 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterRequestModel requestModel)
         {
-            // Check if the model is valid
+            // Check if the model is valid (Back end validation)
             if (!ModelState.IsValid)
             {
                 return View();  // If the model is not valid, stay on the same page.

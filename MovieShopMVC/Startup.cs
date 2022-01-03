@@ -1,3 +1,4 @@
+using ApplicationCore.Entities;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Data;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieShopMVC.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +41,9 @@ namespace MovieShopMVC
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<IAsyncRepository<Genre>, EfRepository<Genre>>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddMemoryCache();
             
             services.AddHttpContextAccessor();  // == AddScoped<IHttpContextAccessor, HttpContextAccessor>();
             // Inject connection string from appsetting.json to MovieShopDbContext
@@ -56,11 +61,13 @@ namespace MovieShopMVC
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            // Default Exceptions handler
+            if (env.IsDevelopment())    // If in developer mode, show code error details
             {
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
+                app.UseMovieShopExceptionMiddleware();
             }
-            else
+            else   // For user, show user friendly page and hide the code.
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

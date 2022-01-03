@@ -10,7 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './core/layout/header/header.component';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
-import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
+import { SharedModule } from './shared/shared.module';
+//import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
 
 
 @NgModule({     //decorator
@@ -19,15 +20,16 @@ import { MovieCardComponent } from './shared/components/movie-card/movie-card.co
     HomeComponent,
     HeaderComponent,
     LoginComponent,
-    RegisterComponent,
-    MovieCardComponent
+    RegisterComponent
+    //MovieCardComponent
   ],
   imports: [  // remember also import the module here
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
     //UserModule,
     //AdminModule,
     //AccountModule
